@@ -15,11 +15,14 @@ class TANKWARFARE_API ATank : public APawn
 {
 	GENERATED_BODY()
 
-public:
-	void AimAt(FVector HitLocation);
-
+public:	
+	UFUNCTION(BlueprintCallable, Category = Actions)
+		void Fire();
 	UFUNCTION(BlueprintCallable, Category = Setup)
 		void SetBarrelReference(UTankBarrel* BarrelToSet);
+	
+	void AimAt(FVector HitLocation);
+
 	UFUNCTION(BlueprintCallable, Category = Setup)
 		void SetTurretReference(UTankTurret* TurretToSet);
 
