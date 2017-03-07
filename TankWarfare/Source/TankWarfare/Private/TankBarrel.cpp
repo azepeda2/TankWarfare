@@ -3,10 +3,13 @@
 #include "TankWarfare.h"
 #include "TankBarrel.h"
 
-
-void UTankBarrel::Elevate(float DegreesPerSecond)
+// Move Barrel at a reasonable speed, due to max elevation speed and frame time
+void UTankBarrel::Elevate(float RelativeSpeed)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Barrel->Elevate() at %f"), DegreesPerSecond);
-
+	RelativeSpeed = FMath::Clamp<float>(RelativeSpeed, -1, 1);
+	auto ElevationChange = RelativeSpeed * MaxDegreesPerSecond * GetWorld()->DeltaTimeSeconds;
+	auto NewElevation = RelativeRotation.Pitch + ElevationChange;
+	auto Elevation = FMath::Clamp(NewElevation, MinElevationDegrees, MaxElevationDegrees);
+	SetRelativeRotation(FRotator(Elevation, 0, 0));
 }
 
