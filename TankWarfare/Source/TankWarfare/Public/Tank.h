@@ -9,6 +9,7 @@
 class UTankBarrel;
 class UTankTurret;
 class UTankAimingComponent;
+class AProjectile;
 
 UCLASS()
 class TANKWARFARE_API ATank : public APawn
@@ -18,6 +19,7 @@ class TANKWARFARE_API ATank : public APawn
 public:	
 	UFUNCTION(BlueprintCallable, Category = Actions)
 		void Fire();
+	
 	UFUNCTION(BlueprintCallable, Category = Setup)
 		void SetBarrelReference(UTankBarrel* BarrelToSet);
 	
@@ -39,7 +41,16 @@ private:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	UPROPERTY(EditAnywhere, Category = Firing)
-		float LaunchSpeed = 100000; // Starting at 1000 m/s
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+		float LaunchSpeed = 4000; // Starting at 500 m/s
 	
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+		float ReloadTimeInSeconds = 3;
+	
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+		TSubclassOf<AProjectile> ProjectileBlueprint;
+	
+	UTankBarrel* Barrel = nullptr;
+	
+	double LastFiredTime = 0;
 };

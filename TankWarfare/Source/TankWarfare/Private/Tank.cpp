@@ -3,6 +3,7 @@
 #include "TankWarfare.h"
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"
+#include "Projectile.h"
 #include "TankTurret.h"
 #include "Tank.h"
 
@@ -19,6 +20,7 @@ void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
 	if (!BarrelToSet) { return; }
 	TankAimingComponent->SetBarrelReference(BarrelToSet);
+	Barrel = BarrelToSet;
 }
 
 void ATank::SetTurretReference(UTankTurret* TurretToSet)
@@ -49,7 +51,19 @@ void ATank::AimAt(FVector HitLocation)
 
 void ATank::Fire()
 {
-	float Time = GetWorld()->GetTimeSeconds();
-	UE_LOG(LogTemp, Warning, TEXT("%f: Tank Fired Shot."), Time);
+	bool isReloaded = (FPlatformTime::Seconds() - LastFiredTime) > ReloadTimeInSeconds;
+
+	if (Barrel && isReloaded)
+	{
+
+		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
+			ProjectileBlueprint,
+			Barrel->GetSocketLocation(FName("Projectile")),
+			Barrel->GetSocketRotation(FName("Projectile"))
+			);
+
+		Projectile->LaunchProjectile(LaunchSpeed);
+		LastFiredTime = FPlatformTime::Seconds();
+	}
 }
 
