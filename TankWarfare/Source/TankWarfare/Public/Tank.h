@@ -19,21 +19,21 @@ class TANKWARFARE_API ATank : public APawn
 
 public:	
 	UFUNCTION(BlueprintCallable, Category = Actions)
-		void Fire();
+	void Fire();
 	
 	UFUNCTION(BlueprintCallable, Category = Setup)
-		void SetBarrelReference(UTankBarrel* BarrelToSet);
+	void SetBarrelReference(UTankBarrel* BarrelToSet);
 	
 	void AimAt(FVector HitLocation);
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
-		void SetTurretReference(UTankTurret* TurretToSet);
+	void SetTurretReference(UTankTurret* TurretToSet);
 
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
 	UPROPERTY(BlueprintReadOnly)
-		UTankMovementComponent* TankMovementComponent = nullptr;
+	UTankMovementComponent* TankMovementComponent = nullptr;
 
 private:
 	// Sets default values for this pawn's properties
@@ -46,13 +46,13 @@ private:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
-		float LaunchSpeed = 4000; // Starting at 500 m/s
+	float LaunchSpeed = 4000; // Starting at 500 m/s
 	
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
-		float ReloadTimeInSeconds = 3;
+	float ReloadTimeInSeconds = 3;
 	
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
-		TSubclassOf<AProjectile> ProjectileBlueprint;
+	TSubclassOf<AProjectile> ProjectileBlueprint;
 	
 	UTankBarrel* Barrel = nullptr;
 	

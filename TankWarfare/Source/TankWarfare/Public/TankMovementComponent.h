@@ -17,10 +17,13 @@ class TANKWARFARE_API UTankMovementComponent : public UNavMovementComponent
 
 public:
 	UFUNCTION(BlueprintCallable, Category = Setup)
-		void Initialiaze(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet);
+	void Initialiaze(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet);
 
 	UFUNCTION(BlueprintCallable, Category = Input)
-		void IntendMoveForward(float Throw);
+	void IntendMoveForward(float Throw);
+
+	UFUNCTION(BlueprintCallable, Category = Input)
+	void IntendTurnRight(float Throw);
 
 private:
 	UTankTrack* LeftTrack = nullptr;
