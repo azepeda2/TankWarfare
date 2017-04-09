@@ -44,8 +44,6 @@
 SourceArt/**/*.png
 SourceArt/**/*.tga
 
-TankWarfare/Content/StarterContent/
-
 # Binary Files
 */Binaries
 
