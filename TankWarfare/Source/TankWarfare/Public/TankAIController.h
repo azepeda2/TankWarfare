@@ -19,5 +19,6 @@ class TANKWARFARE_API ATankAIController : public AAIController
 private:
 	virtual void BeginPlay() override;
 	void Tick(float DeltaTime);
-	
+	// How close an AI tank can get to a player
+	float AcceptanceRadius = 3000;
 };
