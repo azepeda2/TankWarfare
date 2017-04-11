@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Alejandro Zepeda.
 
 #include "TankWarfare.h"
 #include "TankTrack.h"
@@ -37,5 +37,4 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 
 	auto RightThrow = FVector::CrossProduct(TankForwardVector, AIForwardDirection).Z;
 	IntendMoveForward(RightThrow);
-	//UE_LOG(LogTemp, Warning, TEXT("%s vectoring to %s"), *TankName, *MoveVelocityString);
 }
