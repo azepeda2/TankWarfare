@@ -3,15 +3,14 @@
 #include "TankWarfare.h"
 #include "Tank.h"
 #include "TankAIController.h"
-
-
+// Depends on movement component via pathfinding system
 
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
-
+// Called every Frame
 void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
