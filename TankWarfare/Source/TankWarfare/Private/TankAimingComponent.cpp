@@ -3,6 +3,7 @@
 #include "TankWarfare.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
+#include "Projectile.h"
 #include "TankAimingComponent.h"
 
 
@@ -11,7 +12,7 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	bWantsBeginPlay = true;
+	//bWantsBeginPlay = true;
 	PrimaryComponentTick.bCanEverTick = false;
 }
 
@@ -21,6 +22,25 @@ void UTankAimingComponent::Initialiaze(UTankBarrel* BarrelToSet, UTankTurret* Tu
 	Barrel = BarrelToSet;
 	Turret = TurretToSet;
 
+}
+
+void UTankAimingComponent::Fire()
+{
+	if (!ensure(Barrel && ProjectileBlueprint)) { return; }
+	bool isReloaded = (FPlatformTime::Seconds() - LastFiredTime) > ReloadTimeInSeconds;
+
+	if (isReloaded)
+	{
+
+		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
+			ProjectileBlueprint,
+			Barrel->GetSocketLocation(FName("Projectile")),
+			Barrel->GetSocketRotation(FName("Projectile"))
+			);
+
+		Projectile->LaunchProjectile(LaunchSpeed);
+		LastFiredTime = FPlatformTime::Seconds();
+	}
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation)
