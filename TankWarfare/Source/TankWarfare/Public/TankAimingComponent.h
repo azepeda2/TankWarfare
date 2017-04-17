@@ -11,7 +11,8 @@ enum class EFiringState : uint8
 {
 	Reloading,
 	Aiming,
-	Locked
+	Locked,
+	OutOfAmmo
 };
 
 // Forward declaration 
@@ -34,7 +35,10 @@ public:
 
 	void AimAt(FVector HitLocation);
 	void MoveBarrelTowards(FVector Direction);
+	EFiringState GetFiringState() const;
 
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	int GetAmmoLeft() const;
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringState FiringState = EFiringState::Reloading;
@@ -59,4 +63,6 @@ private:
 
 	double LastFiredTime = 0;
 	FVector AimDirection;
+
+	int TankAmmo = 3;
 };

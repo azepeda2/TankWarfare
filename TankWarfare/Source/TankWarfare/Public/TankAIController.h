@@ -13,10 +13,13 @@ UCLASS()
 class TANKWARFARE_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
-	
+			
+protected:
+	// How close an AI tank can get to a player
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float AcceptanceRadius = 8000;
+
 private:
 	virtual void BeginPlay() override;
 	void Tick(float DeltaTime);
-	// How close an AI tank can get to a player
-	float AcceptanceRadius = 3000;
 };
