@@ -24,6 +24,11 @@ AProjectile::AProjectile()
 	ImpactBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Impact Blast"));
 	ImpactBlast->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	ImpactBlast->bAutoActivate = false;
+
+	BlastForce = CreateDefaultSubobject<URadialForceComponent>(FName("Blast Force"));
+	BlastForce->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+
+
 }
 
 // Called when the game starts or when spawned
@@ -37,6 +42,18 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 {
 	LaunchBlast->Deactivate();
 	ImpactBlast->Activate();
+	BlastForce->FireImpulse();
+
+	SetRootComponent(ImpactBlast);
+	CollisionMesh->DestroyComponent();
+
+	FTimerHandle Timer;
+	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AProjectile::OnTimerExpire, DestroyDelay, false);
+}
+
+void AProjectile::OnTimerExpire()
+{
+	Destroy();
 }
 
 // Called every frame

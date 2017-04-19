@@ -20,6 +20,8 @@ public:
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
 
+	void OnTimerExpire();
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -35,4 +37,10 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UParticleSystemComponent* ImpactBlast = nullptr;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	URadialForceComponent* BlastForce = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Components")
+	float DestroyDelay = 7.f;
 };
