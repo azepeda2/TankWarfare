@@ -11,6 +11,19 @@ class TANKWARFARE_API ATank : public APawn
 {
 	GENERATED_BODY()
 
+public:
+	// Called by engine when actor damage is dealt
+	virtual float ATank::TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController * EventInstigator, AActor * DamageCauser) override;
+	
+	// Returns the current health in percentage, from 0 to 1
+	UFUNCTION(BlueprintPure, Category = "Health")
+	float GetHealthPercentage() const;
+private:
 	ATank();
 
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	int32 StartingHealth = 100;
+
+	UPROPERTY(VisibleAnywhere, Category = "Setup")
+	int32 CurrentHealth = StartingHealth;
 };
