@@ -21,6 +21,8 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 	void FoundAimingComponent(UTankAimingComponent* AimingCompRef);
 
+	UFUNCTION()
+	void OnPossessedTankDeath();
 private:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
@@ -28,6 +30,7 @@ private:
 	bool GetSightRayHitLocation(FVector& HitLocation) const;
 	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
 	bool GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const;
+	virtual void SetPawn(APawn* InPawn) override;
 
 	UPROPERTY(EditDefaultsOnly)
 	float CrosshairXLocation = 0.5;
