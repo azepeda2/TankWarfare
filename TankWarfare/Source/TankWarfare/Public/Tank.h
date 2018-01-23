@@ -28,6 +28,6 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	int32 StartingHealth = 100;
 
-	UPROPERTY(VisibleAnywhere, Category = "Setup")
+	UPROPERTY(VisibleAnywhere, Category = "Health")
 	int32 CurrentHealth; //Initialize in BeginPlay
 };
